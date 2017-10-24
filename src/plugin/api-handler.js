@@ -33,3 +33,5 @@ export const ApiHandler = {
     return null
   }
 }
+
+export default ApiHandler

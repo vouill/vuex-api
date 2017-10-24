@@ -41,3 +41,5 @@ export const module = {
   actions,
   mutations
 }
+
+export default module
