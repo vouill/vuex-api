@@ -2,10 +2,17 @@ import pluginActions from 'plugin/actions'
 
 export const ApiHandler = {
   name: 'api-handled',
-  props: { keyPath: String, url: String, period: Number },
+  props: {
+    keyPath: { type: String, required: true },
+    url: { type: String, required: true },
+    period: Number,
+    baseURL: String,
+    persistent: { type: Boolean, default: true }
+  },
   methods: {
     apiRequest: function () {
-      this.$store.dispatch(pluginActions.request, { keyPath: this.keyPath, url: this.url })
+      const { keyPath, url, baseUrl } = this
+      this.$store.dispatch(pluginActions.request, { keyPath, url, baseUrl })
     }
   },
   created: function () {
@@ -15,6 +22,9 @@ export const ApiHandler = {
     }
   },
   destroyed: function () {
+    if (!this.persistent) {
+      this.$store.dispatch(pluginActions.clear, this.keyPath)
+    }
     if (this.intervalId) {
       clearInterval(this.intervalId)
     }
