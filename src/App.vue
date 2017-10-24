@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <div>
-      <api-handler :period="5000" :url="'repos/vouill/vue-bulma-components/commits'" :keyPath="'vue-bulma-components'"/>
+      <api-handler baseURL="https://api.github.com" :period="5000" :url="'repos/vouill/vue-bulma-components/commits'" :keyPath="'vue-bulma-components'"/>
       <h2>vue-bulma-components</h2>
       <tree-view :data="repo" :options="{maxDepth: 1}"></tree-view>
       <button @click="clearApiHandler('vue-bulma-components')">Clear it</button>
     </div>
     <div>
-      <api-handler :url="'repos/vouill/vue-geb/commits'" :keyPath="'vue-geb'"/>
+      <api-handler baseURL="https://api.github.com" :url="'repos/vouill/vue-geb/commits'" :keyPath="'vue-geb'"/>
       <h2>vue-geb</h2>
       <tree-view :data="geb" :options="{maxDepth: 1}"></tree-view>
       <button @click="clearApiHandler('vue-geb')">Clear it</button>
     </div>
     <div>
-      <api-handler :url="'reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits'" :keyPath="'vue-fdsfsdfsdfsdfsdf'"/>
+      <api-handler baseURL="https://api.github.com" :url="'reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits'" :keyPath="'vue-fdsfsdfsdfsdfsdf'"/>
       <h2>error</h2>
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>

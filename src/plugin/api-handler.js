@@ -1,4 +1,4 @@
-import pluginActions from 'plugin/actions'
+import pluginActions from './actions'
 
 export const ApiHandler = {
   name: 'api-handled',
@@ -11,8 +11,8 @@ export const ApiHandler = {
   },
   methods: {
     apiRequest: function () {
-      const { keyPath, url, baseUrl } = this
-      this.$store.dispatch(pluginActions.request, { keyPath, url, baseUrl })
+      const { keyPath, url, baseURL } = this
+      this.$store.dispatch(pluginActions.request, { keyPath, url, baseURL })
     }
   },
   created: function () {
