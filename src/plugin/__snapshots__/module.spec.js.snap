@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Module Actions should process clear 1`] = `
+Array [
+  Array [
+    "Clear_Api_Call",
+    "someKeypath",
+  ],
+]
+`;
+
+exports[`Module Actions should process request 1`] = `
+Array [
+  Array [
+    "Request_Api_Call",
+    Object {},
+  ],
+]
+`;
+
+exports[`Module mutations should process clear 1`] = `
+Object {
+  "[object Object]": Object {},
+}
+`;
+
+exports[`Module mutations should process error 1`] = `
+Object {
+  "someKeyPath": Object {
+    "err": Object {
+      "data": "fakeErro",
+    },
+    "state": "error",
+  },
+}
+`;
+
+exports[`Module mutations should process request 1`] = `
+Object {
+  "someKeyPath": Object {
+    "state": "loading",
+  },
+}
+`;
+
+exports[`Module mutations should process success 1`] = `
+Object {
+  "someKeyPath": Object {
+    "firstCallDone": true,
+    "resp": Object {
+      "date": "fakeData",
+    },
+    "state": "success",
+  },
+}
+`;

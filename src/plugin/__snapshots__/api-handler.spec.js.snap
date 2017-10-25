@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Api handler call the correct hooks when mounting and unmounting 1`] = `
+Array [
+  Array [
+    "Request_Api_Call",
+    Object {
+      "baseURL": undefined,
+      "keyPath": "totally-a-keypath",
+      "url": "some/url",
+    },
+  ],
+]
+`;
