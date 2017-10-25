@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Api handler call the correct hooks when mounting and unmounting 1`] = `
+exports[`Api handler call the correct hooks when mounting 1`] = `
 Array [
   Array [
     "Request_Api_Call",
@@ -9,6 +9,23 @@ Array [
       "keyPath": "totally-a-keypath",
       "url": "some/url",
     },
+  ],
+]
+`;
+
+exports[`Api handler should be called after destroy 1`] = `
+Array [
+  Array [
+    "Request_Api_Call",
+    Object {
+      "baseURL": undefined,
+      "keyPath": "totally-a-keypath",
+      "url": "some/url",
+    },
+  ],
+  Array [
+    "Clear_Api_Call",
+    "totally-a-keypath",
   ],
 ]
 `;

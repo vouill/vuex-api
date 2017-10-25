@@ -3082,6 +3082,12 @@ jest-runtime@^21.0.0:
     write-file-atomic "^2.1.0"
     yargs "^7.0.2"
 
+jest-serializer-vue@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/jest-serializer-vue/-/jest-serializer-vue-0.2.0.tgz#556e4af7f3626fb193019abd32717bdfc9cc20b7"
+  dependencies:
+    js-beautify "^1.7.3"
+
 jest-snapshot@^21.0.0:
   version "21.0.0"
   resolved "https://registry.yarnpkg.com/jest-snapshot/-/jest-snapshot-21.0.0.tgz#00b582b13ef42112bd431b498e37f7829b30cd66"
@@ -3141,6 +3147,15 @@ js-base64@^2.1.9:
 js-beautify@^1.6.3:
   version "1.6.14"
   resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.6.14.tgz#d3b8f7322d02b9277d58bd238264c327e58044cd"
+  dependencies:
+    config-chain "~1.1.5"
+    editorconfig "^0.13.2"
+    mkdirp "~0.5.0"
+    nopt "~3.0.1"
+
+js-beautify@^1.7.3:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.7.4.tgz#fa0dfa8fef594d6a6253755fe26af5d0a22cbd90"
   dependencies:
     config-chain "~1.1.5"
     editorconfig "^0.13.2"
