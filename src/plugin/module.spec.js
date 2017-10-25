@@ -38,12 +38,25 @@ describe('Module mutations', () => {
   })
 
   it('should process error', () => {
-    module.mutations[pluginActions.error](state, { keyPath, err: { data: 'fakeErro' } })
+    module.mutations[pluginActions.error](state, { keyPath, err: { data: 'fakeError' } })
     expect(state).toMatchSnapshot()
   })
 
   it('should process clear', () => {
     module.mutations[pluginActions.clear](state, { keyPath })
+    expect(state).toMatchSnapshot()
+  })
+
+  it('should process request -> success', () => {
+    module.mutations[pluginActions.clear](state, { keyPath })
+    module.mutations[pluginActions.success](state, { keyPath, resp: { date: 'fakeData' } })
+    expect(state).toMatchSnapshot()
+  })
+
+  it('should process request -> error', () => {
+    module.mutations[pluginActions.clear](state, { keyPath })
+    expect(state).toMatchSnapshot()
+    module.mutations[pluginActions.error](state, { keyPath, err: { data: 'fakeError' } })
     expect(state).toMatchSnapshot()
   })
 })
