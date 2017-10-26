@@ -1,4 +1,3 @@
-import Vue from 'vue/dist/vue.js'
 import { mount } from 'vue-test-utils'
 import ApiHandler from './api-handler'
 
