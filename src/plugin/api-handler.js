@@ -1,18 +1,17 @@
 import pluginActions from './actions'
 
-export const ApiHandler = {
+export const ApiHandler = (args) => ({
   name: 'api-handled',
   props: {
     keyPath: { type: String, required: true },
     url: { type: String, required: true },
     period: Number,
-    baseURL: String,
     persistent: { type: Boolean, default: true }
   },
   methods: {
     apiRequest: function () {
-      const { keyPath, url, baseURL } = this
-      this.$store.dispatch(pluginActions.request, { keyPath, url, baseURL })
+      const { keyPath, url } = this
+      this.$store.dispatch(pluginActions.request, { keyPath, url, ...args })
     }
   },
   created: function () {
@@ -32,6 +31,6 @@ export const ApiHandler = {
   render () {
     return null
   }
-}
+})
 
 export default ApiHandler

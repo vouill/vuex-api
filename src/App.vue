@@ -1,20 +1,25 @@
 <template>
   <div id="app">
     <div>
-      <api-handler baseURL="https://api.github.com" :period="5000" :url="'repos/vouill/vue-bulma-components/commits'" :keyPath="'vue-bulma-components'"/>
-      <h2>vue-bulma-components</h2>
+      <github-api :period="5000" url="repos/vouill/vue-bulma-components/commits" keyPath="vue-bulma-components"/>
+      <h2>vuex-api</h2>
       <tree-view :data="repo" :options="{maxDepth: 1}"></tree-view>
       <button @click="clearApiHandler('vue-bulma-components')">Clear it</button>
     </div>
     <div>
-      <api-handler baseURL="https://api.github.com" :url="'repos/vouill/vue-geb/commits'" :keyPath="'vue-geb'"/>
+      <github-api url="repos/vouill/vue-geb/commits" keyPath="vue-geb"/>
       <h2>vue-geb</h2>
       <tree-view :data="geb" :options="{maxDepth: 1}"></tree-view>
       <button @click="clearApiHandler('vue-geb')">Clear it</button>
     </div>
     <div>
-      <api-handler baseURL="https://api.github.com" :url="'reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits'" :keyPath="'vue-fdsfsdfsdfsdfsdf'"/>
+      <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" keyPath="vue-fdsfsdfsdfsdfsdf"/>
       <h2>error</h2>
+      <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
+    </div>
+    <div>
+      <json-api url="posts/1" keyPath="vue-fdsfsdfsdfsdfsdf"/>
+      <h2>json api</h2>
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>
   </div>
@@ -27,11 +32,10 @@
 <script>
   import { mapState } from 'vuex'
   import pluginActions from 'plugin/actions'
-  import { ApiHandler, apiHandlerHelper } from './plugin'
+  import { apiHandlerHelper } from './plugin'
 
   export default {
     name: 'app',
-    components: { ApiHandler },
     methods: {
       clearApiHandler: function (keyPath) {
         this.$store.dispatch(pluginActions.clear, keyPath)

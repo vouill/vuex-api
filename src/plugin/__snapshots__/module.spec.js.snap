@@ -13,7 +13,9 @@ exports[`Module Actions should process request 1`] = `
 Array [
   Array [
     "Request_Api_Call",
-    Object {},
+    Object {
+      "baseURL": "baseUrl",
+    },
   ],
 ]
 `;

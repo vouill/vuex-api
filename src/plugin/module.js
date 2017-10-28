@@ -4,10 +4,22 @@ import axios from 'axios'
 const state = {}
 
 const actions = {
-  [pluginActions.request]: ({ commit }, { url, method, baseURL, ...options }) => {
+  [pluginActions.request]: ({ commit, dispatch }, { url, method, requestConfig, data, onSuccess, ...options }) => {
     commit(pluginActions.request, options)
-    axios({ method: method || 'GET', baseURL: baseURL || '', url }).then(resp => {
+    axios({ method: method || 'GET', url, data, ...requestConfig }).then(resp => {
       commit(pluginActions.success, { ...options, resp: resp })
+      if (onSuccess) {
+        const { dispatchAction, executeFunction, commitAction } = onSuccess
+        if (dispatchAction) {
+          dispatch(dispatchAction)
+        }
+        if (commitAction) {
+          commit(commitAction)
+        }
+        if (executeFunction) {
+          executeFunction(resp)
+        }
+      }
     }).catch(err => {
       commit(pluginActions.error, { ...options, err: err.response })
     })

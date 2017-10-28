@@ -5,7 +5,6 @@ Array [
   Array [
     "Request_Api_Call",
     Object {
-      "baseURL": undefined,
       "keyPath": "totally-a-keypath",
       "url": "some/url",
     },
@@ -18,7 +17,7 @@ Array [
   Array [
     "Request_Api_Call",
     Object {
-      "baseURL": undefined,
+      "baseURL": "https://api.github.com",
       "keyPath": "totally-a-keypath",
       "url": "some/url",
     },
