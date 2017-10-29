@@ -1,6 +1,6 @@
 {
   "name": "vuex-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Effortlessly handle api calls with vuex without repeating yourself.",
   "author": "Vouill <vouillon.thibaud@gmail.com>",
   "main": "./lib/vuex-api.js",
