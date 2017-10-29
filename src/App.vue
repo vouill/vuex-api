@@ -18,9 +18,10 @@
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>
     <div>
-      <json-api url="posts/1" keyPath="vue-fdsfsdfsdfsdfsdf"/>
+      <json-api :args="{postId: post}" url="comments" keyPath="json"/>
       <h2>json api</h2>
-      <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
+      <button @click="post++">add post nb</button>
+      <tree-view :data="json" :options="{maxDepth: 1}"></tree-view>
     </div>
   </div>
 </template>
@@ -36,6 +37,11 @@
 
   export default {
     name: 'app',
+    data: function () {
+      return ({
+        post: 0
+      })
+    },
     methods: {
       clearApiHandler: function (keyPath) {
         this.$store.dispatch(pluginActions.clear, keyPath)
@@ -44,7 +50,8 @@
     computed: mapState({
       repo: apiHandlerHelper('vue-bulma-components'),
       geb: apiHandlerHelper('vue-geb'),
-      error: apiHandlerHelper('vue-fdsfsdfsdfsdfsdf')
+      error: apiHandlerHelper('vue-fdsfsdfsdfsdfsdf'),
+      json: apiHandlerHelper('json')
     })
 }
 </script>

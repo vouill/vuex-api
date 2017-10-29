@@ -1,18 +1,36 @@
-# vuex-api-helper
+# vuex-api
+## Introduction
+This plugins aims to make api calls generic and handled predictably.
 
-## TODO
+## Instal
 
--[x] Handle loading api call
--[x] Handle success api call
--[x] Handle error api call
--[x] Handle clear vuex partial state
--[x] Periodic requests 
--[x] Build an Helper HOC
--[ ] Build custom request + helpers
--[ ] Build customization flow and hooks capabilities
--[ ] Avoid racing condition w/ cancelation ?
--[ ] Global state modification possibilities.
--[ ] Fire actions on success
--[ ] Build docs
--[ ] Build examples
--[ ] Test that shit
+### Import the vuex-api module
+In your `store.js`:
+```javascript
+import vuexApi from 'vuex-api'
+
+export default new Vuex.Store({
+  modules: {
+    vuexApi,
+  },
+})
+``` 
+
+### Create the Api caller component
+In your `main.js`:
+
+```javascript
+import { ApiHandler } from 'vuex-api'
+
+Vue.component('my-api', ApiHandler())
+Vue.component('github-api', ApiHandler({ requestConfig: { baseURL: 'https://api.github.com' } }))
+```
+
+Finally when you want to get data:
+
+```html
+<div>
+  <github-api url="repos/vouill/vue-geb/commits" keyPath="vue-geb"/>
+</div>
+```
+
