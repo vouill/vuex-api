@@ -33,7 +33,7 @@
 <script>
   import { mapState } from 'vuex'
   import pluginActions from 'plugin/actions'
-  import { apiHandlerHelper } from './plugin'
+  import { getApiState } from './plugin'
 
   export default {
     name: 'app',
@@ -48,10 +48,10 @@
       }
     },
     computed: mapState({
-      repo: apiHandlerHelper('vue-bulma-components'),
-      geb: apiHandlerHelper('vue-geb'),
-      error: apiHandlerHelper('vue-fdsfsdfsdfsdfsdf'),
-      json: apiHandlerHelper('json')
+      repo: getApiState('vue-bulma-components'),
+      geb: getApiState('vue-geb'),
+      error: getApiState('vue-fdsfsdfsdfsdfsdf'),
+      json: getApiState('json')
     })
 }
 </script>
