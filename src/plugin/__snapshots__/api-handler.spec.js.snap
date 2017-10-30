@@ -17,8 +17,10 @@ Array [
   Array [
     "Request_Api_Call",
     Object {
-      "baseURL": "https://api.github.com",
       "keyPath": "totally-a-keypath",
+      "requestConfig": Object {
+        "baseURL": "https://api.github.com",
+      },
       "url": "some/url",
     },
   ],

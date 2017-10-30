@@ -10,8 +10,16 @@ describe('Api handler', () => {
 
   it('should be called after destroy', () => {
     const dispatch = jest.fn()
-    const wrapper = mount(ApiHandler({ baseURL: 'https://api.github.com' }), { mocks: { $store: { dispatch } }, propsData: { persistent: false, url: 'some/url', keyPath: 'totally-a-keypath' } })
+    const wrapper = mount(ApiHandler({ requestConfig: { baseURL: 'https://api.github.com' } }), { mocks: { $store: { dispatch } }, propsData: { persistent: false, url: 'some/url', keyPath: 'totally-a-keypath' } })
     wrapper.vm.$destroy()
     expect(dispatch.mock.calls).toMatchSnapshot()
   })
+
+  // it('should call the api after arg change', () => {
+  //   const dispatch = jest.fn()
+  //   const wrapper = mount(ApiHandler({ requestConfig: { baseURL: 'https://api.github.com' } }), { mocks: { $store: { dispatch } }, propsData: { persistent: false, url: 'some/url', keyPath: 'totally-a-keypath', args: { post: 1 } } })
+  //   wrapper.setProps({ args: { post: 2 } })
+  //   wrapper.setProps({ args: { post: 3 } })
+  //   expect(dispatch.mock.calls).toMatchSnapshot()
+  // })
 })
