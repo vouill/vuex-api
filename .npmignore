@@ -6,4 +6,7 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 .idea
-lib/
+src
+config
+build
+index.html
