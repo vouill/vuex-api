@@ -1,7 +1,7 @@
 import pluginActions from './actions'
 import qs from 'query-string'
 
-export const ApiHandler = (initArgs) => ({
+export const ApiHandlerComponent = (initArgs) => ({
   name: 'api-handled',
   computed: {
     builtUrl: function () {
@@ -45,4 +45,4 @@ export const ApiHandler = (initArgs) => ({
   }
 })
 
-export default ApiHandler
+export default ApiHandlerComponent

@@ -32,7 +32,7 @@ Object {
     "err": Object {
       "data": "fakeError",
     },
-    "state": "error",
+    "status": "error",
   },
 }
 `;
@@ -50,7 +50,7 @@ Object {
     "err": Object {
       "data": "fakeError",
     },
-    "state": "error",
+    "status": "error",
   },
 }
 `;
@@ -63,7 +63,7 @@ Object {
     "resp": Object {
       "date": "fakeData",
     },
-    "state": "success",
+    "status": "success",
   },
 }
 `;
@@ -71,7 +71,7 @@ Object {
 exports[`Module mutations should process request 1`] = `
 Object {
   "someKeyPath": Object {
-    "state": "loading",
+    "status": "loading",
   },
 }
 `;
@@ -83,7 +83,7 @@ Object {
     "resp": Object {
       "date": "fakeData",
     },
-    "state": "success",
+    "status": "success",
   },
 }
 `;

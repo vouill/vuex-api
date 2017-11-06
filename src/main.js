@@ -4,10 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import TreeView from 'vue-json-tree-view'
-import { ApiHandler } from './plugin'
+import { ApiHandlerComponent } from './plugin'
 Vue.use(TreeView)
-Vue.component('github-api', ApiHandler({ requestConfig: { baseURL: 'https://api.github.com' } }))
-Vue.component('json-api', ApiHandler({ requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' } }))
+Vue.component('github-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https://api.github.com' } }))
+Vue.component('json-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' } }))
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

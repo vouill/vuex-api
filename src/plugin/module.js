@@ -5,41 +5,49 @@ const state = {}
 
 const actions = {
   [pluginActions.request]: ({ commit, dispatch }, { url, method, requestConfig, data, onSuccess, ...options }) => {
-    commit(pluginActions.request, options)
-    axios({ method: method || 'GET', url, data, ...requestConfig }).then(resp => {
-      commit(pluginActions.success, { ...options, resp: resp })
-      if (onSuccess) {
-        const { dispatchAction, executeFunction, commitAction } = onSuccess
-        if (dispatchAction) {
-          dispatch(dispatchAction)
+    return new Promise((resolve, reject) => {
+      commit(pluginActions.request, options)
+      axios({ method: method || 'GET', url, data, ...requestConfig }).then(resp => {
+        commit(pluginActions.success, { ...options, resp: resp })
+        if (onSuccess) {
+          const { dispatchAction, executeFunction, commitAction } = onSuccess
+          if (dispatchAction) {
+            dispatch(dispatchAction)
+          }
+          if (commitAction) {
+            commit(commitAction)
+          }
+          if (executeFunction) {
+            executeFunction(resp)
+          }
         }
-        if (commitAction) {
-          commit(commitAction)
-        }
-        if (executeFunction) {
-          executeFunction(resp)
-        }
-      }
-    }).catch(err => {
-      commit(pluginActions.error, { ...options, err: err.response })
+        resolve(resp)
+      }).catch(err => {
+        commit(pluginActions.error, { ...options, err: err.response })
+        reject(err)
+      })
     })
   },
   [pluginActions.clear]: ({ commit }, keyPath) => {
-    commit(pluginActions.clear, keyPath)
+    return new Promise((resolve, reject) => {
+      commit(pluginActions.clear, keyPath)
+      resolve()
+    })
   }
 }
 
 const mutations = {
   [pluginActions.request]: (state, { keyPath }) => {
-    const obj = { ...state[keyPath], state: 'loading' }
+    const obj = { ...state[keyPath], status: 'loading' }
     vue.set(state, keyPath, obj)
   },
   [pluginActions.success]: (state, { keyPath, resp }) => {
-    const obj = { ...state[keyPath], state: 'success', firstCallDone: true, resp }
+    delete resp.config // make this configurable
+    const obj = { ...state[keyPath], status: 'success', firstCallDone: true, resp }
     vue.set(state, keyPath, obj)
   },
   [pluginActions.error]: (state, { keyPath, err }) => {
-    const obj = { ...state[keyPath], state: 'error', err }
+    const obj = { ...state[keyPath], status: 'error', err }
     vue.set(state, keyPath, obj)
   },
   [pluginActions.clear]: (state, keyPath) => {
