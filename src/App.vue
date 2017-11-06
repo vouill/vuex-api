@@ -18,12 +18,10 @@
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>
     <div>
-      <json-api :period="5000" :args="{postId: post}" url="comments" keyPath="json"/>
+      <json-api :period="5000" :args="{postId: post}" url="post" keyPath="json"/>
       <h2>json api</h2>
       <button @click="post++">add post nb</button>
       <tree-view :data="json" :options="{maxDepth: 1}"></tree-view>
-      <div>Is loading ? {{jsonStatus === 'loading'}}</div>
-      <div>response: {{jsonResp}}</div>
     </div>
   </div>
 </template>

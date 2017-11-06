@@ -2,30 +2,10 @@
 ## Introduction
 This plugins aims to make api calls generic and handled predictably.
 
-## Usage
-```html
-<template>
-  <div>
-    <my-api url="articles/new" keyPath="newArticles"/>
-    <article v-for="article in newArticles"/>s
-  </div>
-</template>
-```
+## As easy as pie
+Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
-
-```javascript
-import { getApiData } from 'vuex-api'
-  ...
-  computed: mapState({
-    newArticles: getApiData('vue-bulma-components'),
-  }),
-  ...
-```
-
-## Instal
-
-### Import the vuex-api module
-In your `store.js`:
+1. In your `store.js`, install vuexApi once:
 ```javascript
 import vuexApi from 'vuex-api'
 
@@ -36,81 +16,35 @@ export default new Vuex.Store({
 })
 ``` 
 
-### In your component
-In your `main.js`:
+Great !
+2. Create the vuex-api component that will make the api calls for you
 
+in your `main.js` ( or in a component )
 ```javascript
 import { ApiHandlerComponent } from 'vuex-api'
-// register a same domain api
-Vue.component('my-api', ApiHandlerComponent())
-// register an external api
-Vue.component('external-json-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com', headers: ... } }))
+// you can pass an axios requestObject to all api calls made by <external-json-api/>
+Vue.component('json-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' } }))
 ```
 
-In your component:
+Now you have a json-api component registered. All its API calls will be done w/ the given requestConfig object.
+This mean that if you use multiple apis, same domain and external domains, you can make multiple api components :).
+
+3. Now let's fetch the posts !
 
 ```html
-<div>
-  <external-json-api url="comments" keyPath="commentsVuexState"/>
-  <div>Is loading ? {{commentsStateStatus === 'loading'}}</div> 
-  <div>response ? {{commentsStateResp}}</div>
-</div>
+<template>
+  <div>
+    <my-api url="post" keyPath="jsonPosts"/>
+    <div v-for="post in posts">{{post}}</div>
+  </div>
+</template>
 
 <script>
-  import { mapState } from 'vuex'
-  import pluginActions from 'plugin/actions'
-  import { getApiData } from './plugin'
-
-  export default {
-    computed: mapState({
-      commentsStateStatus: getApiState('commentsVuexState', ['status']),
-      commentsStateResp: getApiState('commentsVuexState', ['resp']),
-    })
+import { getApiData } from 'vuex-api'
+export default {
+  computed: mapState({
+    posts: getApiData('jsonPosts'),
+  }),
 }
 </script>
 ```
-
-## What the fuck is happening here
-
-Alright, take a seat and let's get trough this.
-
-1. First import the vuexApi module in your vuex instance. this module will hold all the api data.
-2. Create the api handler component (global or local doesn't matter).
-```javascript
-  Vue.component('my-api', ApiHandlerComponent())
-  // if you huse headers, or maybe an external api you can pass an axios request config object
-  Vue.component('external-json-api', ApiHandlerComponent({ requestConfig: { ... } }))
-```
-3. Get your data
-```html
-  <external-json-api url="comments" keyPath="commentsVuexState"/>
-```
-When the `<external-json-api/>` component will mount, it will dispatch a request action. at this point the vuex state will look like this:
-
-```javascript
-{
-  vuexApi: {
-    commentsVuexState: {
-      status: 'loading'
-    }
-  }
-}
-``` 
-
-When the request is successful it becomes:
-
-```javascript
-{
-  vuexApi: {
-    commentsVuexState: {
-      status: 'success', 
-      resp: { 
-        // the api response object
-      }
-    }
-  }
-}
-``` 
-
-- You can easily display loading for cool user feedback
-- You can then access the resp data through the vuex state, or by using a `vuex-api` helper
