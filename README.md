@@ -78,3 +78,38 @@ Status of the api call:
  - `'success'`
  - `'error'`
  
+ 
+### `getApiState(keyPath, path, defaultValue)`
+#### Arguments:
+`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
+
+`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
+
+`defaultValue`: default value returned if nothing found
+
+#### Returns:
+whole state of the api call:
+- when loading:
+```
+{
+  status: 'loading'
+}
+```
+- when success api call:
+```
+{
+  status: 'success',
+  firstCallDone: true,
+  resp: {...}
+}
+```
+
+- when failed api call:
+```
+{
+  status: 'error',
+  firstCallDone: true,
+  err: {...}
+}
+```
+ 
