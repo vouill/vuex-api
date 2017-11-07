@@ -2,7 +2,13 @@
 ## Introduction
 This plugins aims to make api calls generic and handled predictably.
 
-## As easy as pie
+Using this library will avoid you writing any vuex logic for handling api calls.
+It handles by itself loading, errors and successful state.
+It also gives you helpers to get whatever data you want. Either the api call status, the response headers, or response data.
+Also it works pretty well when using different api sources.
+
+
+## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
 1. In your `store.js`, install the `vuex-api` module once:
