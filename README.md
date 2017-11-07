@@ -62,6 +62,23 @@ export default {
 `defaultValue`: default value returned if nothing found
 #### Returns:
 Response object of the api call.
+```javascript
+{
+  data: {...},
+  headers: {...}
+}
+```
+
+### `getApiData(keyPath, path, defaultValue)`
+#### Arguments:
+`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
+
+`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
+
+`defaultValue`: default value returned if nothing found
+#### Returns:
+The api response data.
+
  
 ### `getApiStatus(keyPath, path, defaultValue)`
 #### Arguments:

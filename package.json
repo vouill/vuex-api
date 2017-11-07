@@ -1,6 +1,6 @@
 {
   "name": "vuex-api",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Effortlessly handle api calls with vuex without repeating yourself.",
   "author": "Vouill <vouillon.thibaud@gmail.com>",
   "main": "./lib/vuex-api.js",
@@ -19,10 +19,10 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "jest-serializer-vue": "^0.2.0",
     "query-string": "^5.0.1"
   },
   "devDependencies": {
+    "jest-serializer-vue": "^0.2.0",
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
