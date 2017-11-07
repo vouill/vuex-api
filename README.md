@@ -70,24 +70,11 @@ Response object of the api call.
 ```
 
 ### `getApiData(keyPath, path, defaultValue)`
-#### Arguments:
-`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
-
-`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
-
-`defaultValue`: default value returned if nothing found
 #### Returns:
 The api response data.
 
  
 ### `getApiStatus(keyPath, path, defaultValue)`
-#### Arguments:
-`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
-
-`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
-
-`defaultValue`: default value returned if nothing found
-
 #### Returns:
 Status of the api call:
  - undefined ( component not mounted yet or no actions fired)
@@ -97,13 +84,6 @@ Status of the api call:
  
  
 ### `getApiState(keyPath, path, defaultValue)`
-#### Arguments:
-`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
-
-`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
-
-`defaultValue`: default value returned if nothing found
-
 #### Returns:
 whole state of the api call:
 - when loading:
