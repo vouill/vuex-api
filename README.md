@@ -2,10 +2,11 @@
 ## Introduction
 This plugins aims to make api calls generic and handled predictably.
 
-Using this library will avoid you writing any vuex logic for handling api calls.
-It handles by itself loading, errors and successful state.
-It also gives you helpers to get whatever data you want. Either the api call status, the response headers, or response data.
-Also it works pretty well when using different api sources.
+- Using this library will avoid you writing any vuex logic for handling api calls.
+- It handles by itself loading, errors and successful state.
+- It also gives you helpers to get whatever data you want. Either the api call status, the response headers, or response data.
+
+- It also works pretty well when using different api sources.
 
 
 ## Basic usage
@@ -21,8 +22,6 @@ export default new Vuex.Store({
   },
 })
 ``` 
-
-Great !
 
 2. Create the `vuex-api` component that will make the api calls for you
 
