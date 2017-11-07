@@ -53,7 +53,7 @@ export default {
 ## API
 `vuex-api` exports:
 
-###`getApiResp(keyPath, path, defaultValue)`
+### `getApiResp(keyPath, path, defaultValue)`
 #### Arguments:
 `keyPath`: define the path in vuexState.vuexApi.keyPath where the api data will be store
 
@@ -62,7 +62,7 @@ export default {
 `defaultValue`: default value returned if nothing found
 Returns the resp object of the api call.
  
-###`getApiStatus(keyPath, path, defaultValue)`
+### `getApiStatus(keyPath, path, defaultValue)`
 #### Arguments:
 `keyPath`: define the path in vuexState.vuexApi.keyPath where the api data will be store
 
