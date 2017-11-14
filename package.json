@@ -13,9 +13,9 @@
     "dev": "node build/dev-server.js",
     "build:docs": "node build/build.js",
     "build:lib": "webpack --bail --progress --hide-modules --config build/webpack.lib.conf.js",
-    "test": "npm run lint; jest",
+    "test": "npm run lint; jest src",
     "test-watch": "jest --watch",
-    "lint": "eslint --ext .js,.vue src test/unit/"
+    "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
     "axios": "^0.16.2",

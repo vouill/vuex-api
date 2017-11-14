@@ -1,17 +1,46 @@
 # vuex-api
+
 ## Introduction
-This plugins aims to make api calls generic and handled predictably.
+This library aims to make api calls generic and handled predictably.
 
 - Using this library will avoid you writing any vuex logic for handling api calls.
 - It handles by itself loading, errors and successful state.
 - It also gives you helpers to get whatever data you want. Either the api call status, the response headers, or response data.
-
 - It also works pretty well when using different api sources.
 
 
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
+```html
+<template>
+  <div>
+    <json-api url="post" keyPath="jsonPosts"/>
+    <div v-for="post in posts">{{post}}</div>
+  </div>
+</template>
+
+<script>
+import { getApiResp } from 'vuex-api'
+export default {
+  computed: mapState({
+    posts: getApiResp('jsonPosts'),
+  }),
+}
+</script>
+```
+
+That's it !
+
+## Perks of this librayr:
+
+- Never write any API state logic ( loading, error, success, onSuccess ... are already handled)
+- Both do Read and Write request to the API with the same behavior.
+- Super useful when using multiple external apis ( ex: `<my-api/>` `<contentful-api>` `<github-api/>` )
+- Have a collection of helpfull helpers to answer your common needs 
+
+
+## Getting started
 1. In your `store.js`, install the `vuex-api` module once:
 ```javascript
 import vuexApi from 'vuex-api'
@@ -114,4 +143,3 @@ whole state of the api call:
   err: {...}
 }
 ```
- 
