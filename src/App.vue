@@ -7,21 +7,21 @@
       <button @click="clearApiHandlerComponent('vue-bulma-components')">Clear it</button>
     </div>
     <div>
-      <github-api url="repos/vouill/vue-geb/commits" keyPath="vue-geb"/>
-      <h2>vue-geb</h2>
-      <tree-view :data="geb" :options="{maxDepth: 1}"></tree-view>
-      <button @click="clearApiHandlerComponent('vue-geb')">Clear it</button>
-    </div>
-    <div>
       <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" keyPath="vue-fdsfsdfsdfsdfsdf"/>
       <h2>error</h2>
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>
     <div>
-      <json-api :period="5000" :args="{postId: post}" url="post" keyPath="json"/>
+      <json-api :args="{postId: post}" url="posts" keyPath="json"/>
       <h2>json api</h2>
       <button @click="post++">add post nb</button>
       <tree-view :data="json" :options="{maxDepth: 1}"></tree-view>
+    </div>
+
+    <div>
+      <h2>json api Post</h2>
+      <tree-view :data="postPost" :options="{maxDepth: 1}"></tree-view>
+      <button @click="sendPostReq">Post request</button>
     </div>
   </div>
 </template>
@@ -45,6 +45,15 @@
     methods: {
       clearApiHandlerComponent: function (keyPath) {
         this.$store.dispatch(pluginActions.clear, keyPath)
+      },
+      sendPostReq: function () {
+        this.$store.dispatch(pluginActions.request, {
+          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
+          method: 'POST',
+          url: 'posts',
+          data: { title: 'foo', userId: 2, body: 'bar' },
+          keyPath: ['postPost']
+        })
       }
     },
     computed: mapState({
@@ -53,7 +62,8 @@
       error: getApiState('vue-fdsfsdfsdfsdfsdf'),
       json: getApiState('json'),
       jsonStatus: getApiState('json', ['status']),
-      jsonResp: getApiState('json', ['resp'])
+      jsonResp: getApiState('json', ['resp']),
+      postPost: getApiState('postPost')
     })
 }
 </script>

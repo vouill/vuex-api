@@ -83,6 +83,21 @@ export default {
 }
 </script>
 ```
+## Make a Write request
+
+```javascript
+    methods: {
+      sendPostReq: function () {
+        this.$store.dispatch(pluginActions.request, {
+          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
+          method: 'POST',
+          url: 'posts',
+          data: { title: 'foo', userId: 2, body: 'bar' },
+          keyPath: ['postPost']
+        })
+      }
+    }
+```
 
 ## API
 `vuex-api` exports:
