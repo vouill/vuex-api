@@ -12,8 +12,8 @@
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
     </div>
     <div>
-      <json-api :args="{postId: post}" url="posts" keyPath="json"/>
-      <h2>json api</h2>
+      <json-api :params="{postId: post}" url="posts" keyPath="json"/>
+      <h2>json api w/ param</h2>
       <button @click="post++">add post nb</button>
       <tree-view :data="json" :options="{maxDepth: 1}"></tree-view>
     </div>

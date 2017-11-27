@@ -1,30 +1,27 @@
 import pluginActions from './actions'
-import qs from 'query-string'
 
 export const ApiHandlerComponent = (initArgs) => ({
   name: 'api-handled',
-  computed: {
-    builtUrl: function () {
-      return `${this.url}${this.args ? `?${qs.stringify(this.args)}` : ''}`
-    }
-  },
   props: {
     keyPath: { type: String, required: true },
     url: { type: String, required: true },
     period: Number,
-    args: Object,
+    params: Object,
     persistent: { type: Boolean, default: true }
   },
   methods: {
     apiRequest: function () {
-      const { keyPath, builtUrl } = this
-      this.$store.dispatch(pluginActions.request, { keyPath, url: builtUrl, ...initArgs })
+      const { keyPath, url, params } = this
+      this.$store.dispatch(pluginActions.request, { keyPath, url, params, ...initArgs })
     }
   },
   watch: {
-    builtUrl: function () {
-      this.apiRequest()
-    }
+    // params: function () {
+    //   this.apiRequest()
+    // },
+    // url: function () {
+    //   this.apiRequest()
+    // }
   },
   created: function () {
     this.apiRequest()

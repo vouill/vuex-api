@@ -1,31 +1,53 @@
 import pluginActions from './actions'
 import vue from 'vue'
 import axios from 'axios'
+const { CancelToken } = axios
+
 const state = {}
 
+// used for request cancelation
+const previousStateRequest = { cancel: null, url: null, state: 'finished' }
+
 const actions = {
-  [pluginActions.request]: ({ commit, dispatch }, { url, method, requestConfig, data, onSuccess, ...options }) => {
+  [pluginActions.request]: ({ commit, dispatch }, { url, method, requestConfig, data, params, onSuccess, ...options }) => {
     return new Promise((resolve, reject) => {
       commit(pluginActions.request, options)
-      axios({ method: method || 'GET', url, data, ...requestConfig }).then(resp => {
-        commit(pluginActions.success, { ...options, resp: resp })
-        if (onSuccess) {
-          const { dispatchAction, executeFunction, commitAction } = onSuccess
-          if (dispatchAction) {
-            dispatch(dispatchAction)
+      if (url === previousStateRequest.url && previousStateRequest.state === 'started') {
+        previousStateRequest.cancel()
+      }
+      previousStateRequest.url = url
+      previousStateRequest.state = 'started'
+      axios({ method: method || 'GET',
+        url,
+        data,
+        params,
+        cancelToken: new CancelToken(c => {
+          previousStateRequest.cancel = c
+        }),
+        ...requestConfig }).then(resp => {
+          previousStateRequest.state = 'finished'
+
+          commit(pluginActions.success, { ...options, resp: resp })
+          if (onSuccess) {
+            const { dispatchAction, executeFunction, commitAction } = onSuccess
+            if (dispatchAction) {
+              dispatch(dispatchAction)
+            }
+            if (commitAction) {
+              commit(commitAction)
+            }
+            if (executeFunction) {
+              executeFunction(resp)
+            }
           }
-          if (commitAction) {
-            commit(commitAction)
+          resolve(resp)
+        }).catch(err => {
+          if (axios.isCancel(err)) {
+            console.error('Same concurrent req cancel')
           }
-          if (executeFunction) {
-            executeFunction(resp)
-          }
-        }
-        resolve(resp)
-      }).catch(err => {
-        commit(pluginActions.error, { ...options, err: err.response })
-        reject(err)
-      })
+          commit(pluginActions.error, { ...options, err: err.response })
+          reject(err)
+        })
     })
   },
   [pluginActions.clear]: ({ commit }, keyPath) => {

@@ -12,6 +12,12 @@ This library aims to make api calls generic and handled predictably.
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
+
+
+
+
+
+
 ```html
 <template>
   <div>
@@ -32,7 +38,7 @@ export default {
 
 That's it !
 
-## Perks of this librayr:
+## Perks of this library:
 
 - Never write any API state logic ( loading, error, success, onSuccess ... are already handled)
 - Both do Read and Write request to the API with the same behavior.
@@ -73,7 +79,7 @@ This mean that if you use multiple apis, same domain and external domains, you c
     <div v-for="post in posts">{{post}}</div>
   </div>
 </template>
-
+s
 <script>
 import { getApiResp } from 'vuex-api'
 export default {
@@ -92,12 +98,14 @@ export default {
           requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
           method: 'POST',
           url: 'posts',
+          // params: {} if need to add query params
           data: { title: 'foo', userId: 2, body: 'bar' },
           keyPath: ['postPost']
         })
       }
     }
 ```
+
 
 ## API
 `vuex-api` exports:
