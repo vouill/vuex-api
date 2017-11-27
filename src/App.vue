@@ -1,12 +1,6 @@
 <template>
   <div id="app">
     <div>
-      <github-api  url="repos/vouill/vue-bulma-components/commits" keyPath="vue-bulma-components"/>
-      <h2>vuex-api</h2>
-      <tree-view :data="repo" :options="{maxDepth: 1}"></tree-view>
-      <button @click="clearApiHandlerComponent('vue-bulma-components')">Clear it</button>
-    </div>
-    <div>
       <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" keyPath="vue-fdsfsdfsdfsdfsdf"/>
       <h2>error</h2>
       <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
@@ -55,6 +49,15 @@
           keyPath: ['postPost']
         })
       }
+    },
+    created: function () {
+      // check the vuex progammaticGet in your vue dev tools
+      this.$store.dispatch(pluginActions.request, {
+        baseURL: 'https://jsonplaceholder.typicode.com',
+        method: 'GET',
+        url: 'posts',
+        keyPath: ['progammaticGet']
+      })
     },
     computed: mapState({
       repo: getApiState('vue-bulma-components'),

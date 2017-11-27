@@ -9,45 +9,47 @@ const state = {}
 const previousStateRequest = { cancel: null, url: null, state: 'finished' }
 
 const actions = {
-  [pluginActions.request]: ({ commit, dispatch }, { url, method, requestConfig, data, params, onSuccess, ...options }) => {
+  [pluginActions.request]: ({ commit, dispatch }, { requestConfig, ...otherConfig }) => {
+    const { url, method, onSuccess, keyPath } = otherConfig
     return new Promise((resolve, reject) => {
-      commit(pluginActions.request, options)
+      commit(pluginActions.request, { keyPath })
       if (url === previousStateRequest.url && previousStateRequest.state === 'started') {
         previousStateRequest.cancel()
       }
       previousStateRequest.url = url
       previousStateRequest.state = 'started'
-      axios({ method: method || 'GET',
+      axios({
+        ...requestConfig,
+        ...otherConfig,
+        method: method || 'GET',
         url,
-        data,
-        params,
         cancelToken: new CancelToken(c => {
           previousStateRequest.cancel = c
-        }),
-        ...requestConfig }).then(resp => {
-          previousStateRequest.state = 'finished'
-
-          commit(pluginActions.success, { ...options, resp: resp })
-          if (onSuccess) {
-            const { dispatchAction, executeFunction, commitAction } = onSuccess
-            if (dispatchAction) {
-              dispatch(dispatchAction)
-            }
-            if (commitAction) {
-              commit(commitAction)
-            }
-            if (executeFunction) {
-              executeFunction(resp)
-            }
-          }
-          resolve(resp)
-        }).catch(err => {
-          if (axios.isCancel(err)) {
-            console.error('Same concurrent req cancel')
-          }
-          commit(pluginActions.error, { ...options, err: err.response })
-          reject(err)
         })
+      }).then(resp => {
+        previousStateRequest.state = 'finished'
+
+        commit(pluginActions.success, { resp: resp, keyPath })
+        if (onSuccess) {
+          const { dispatchAction, executeFunction, commitAction } = onSuccess
+          if (dispatchAction) {
+            dispatch(dispatchAction)
+          }
+          if (commitAction) {
+            commit(commitAction)
+          }
+          if (executeFunction) {
+            executeFunction(resp)
+          }
+        }
+        resolve(resp)
+      }).catch(err => {
+        if (axios.isCancel(err)) {
+          console.error('Same concurrent req cancel')
+        }
+        commit(pluginActions.error, { err: err.response, keyPath })
+        reject(err)
+      })
     })
   },
   [pluginActions.clear]: ({ commit }, keyPath) => {

@@ -16,15 +16,23 @@ export const ApiHandlerComponent = (initArgs) => ({
     }
   },
   watch: {
-    // params: function () {
-    //   this.apiRequest()
-    // },
-    // url: function () {
-    //   this.apiRequest()
-    // }
+    params: function () {
+      // need to add shallow compare func
+      if (this.previousParams !== JSON.stringify(this.params)) {
+        this.apiRequest()
+        this.previousParams = JSON.stringify(this.params)
+      }
+    },
+    url: function () {
+      this.apiRequest()
+    }
   },
   created: function () {
-    this.apiRequest()
+    // issue with double req w/ watch triggered on params
+    if (!this.params) {
+      this.apiRequest()
+    }
+
     if (this.period) {
       this.intervalId = setInterval(this.apiRequest, this.period)
     }

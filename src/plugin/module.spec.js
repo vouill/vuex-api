@@ -1,7 +1,6 @@
 /**
  * Created by vouill on 10/24/17.
  */
-// import Vue from 'vue/dist/vue.js'
 import module from './module'
 import pluginActions from './actions'
 
