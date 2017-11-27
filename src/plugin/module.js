@@ -83,7 +83,7 @@ const mutations = {
   }
 }
 
-export const module = {
+const module = {
   state,
   actions,
   mutations

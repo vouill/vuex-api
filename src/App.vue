@@ -46,7 +46,7 @@
           method: 'POST',
           url: 'posts',
           data: { title: 'foo', userId: 2, body: 'bar' },
-          keyPath: ['postPost']
+          keyPath: 'postPost'
         })
       }
     },
@@ -56,7 +56,7 @@
         baseURL: 'https://jsonplaceholder.typicode.com',
         method: 'GET',
         url: 'posts',
-        keyPath: ['progammaticGet']
+        keyPath: 'progammaticGet'
       })
     },
     computed: mapState({

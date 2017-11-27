@@ -4,6 +4,8 @@ Never write any API state logic ( loading, error, success, onSuccess ... are alr
 
 Both do Read and Write request to the API with the same behavior.
 
+Check this [demo](vuex-api-demo.netlify.com) and open your vue dev tool
+
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
@@ -73,6 +75,11 @@ export default new Vuex.Store({
       }
     }
 ```
+## Request object
+
+The request object that you fire is mostly the Axios Request config object. 
+However one mandatory argument is:
+- `keyPath: string` set the store state attribute value under which the request state will be stored
 
 
 ## API

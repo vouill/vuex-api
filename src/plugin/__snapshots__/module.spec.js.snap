@@ -14,7 +14,7 @@ Array [
   Array [
     "Request_Api_Call",
     Object {
-      "baseURL": "baseUrl",
+      "keyPath": undefined,
     },
   ],
 ]
