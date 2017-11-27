@@ -1,16 +1,16 @@
 # vuex-api
 
-Never write any API state logic ( loading, error, success, onSuccess ... are already handled)
+Simple vuex library to easily handle api calls.
 
-Both do Read and Write request to the API with the same behavior.
-
-Check this [demo](vuex-api-demo.netlify.com) and open your vue dev tool
+Also, there is this [demo](vuex-api-demo.netlify.com), open your vue dev tool to check the vuex state.
 
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
 ```javascript
 import pluginActions from 'plugin/actions'
+import { mapState } from 'vuex'
+import { getApiData } from './plugin'
 
 ...
 
@@ -21,7 +21,10 @@ created: {
     url: 'posts',
     // params: {} if need to add query params
     keyPath: ['post'] // Will set the namespace where it will be stored in the vuex state 
-  })
+  }),
+computed: mapState({
+      postData: getApiData('post'),
+    })
 }
 
 ```
