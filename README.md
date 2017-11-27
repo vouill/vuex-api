@@ -2,7 +2,8 @@
 
 Simple vuex library to easily handle api calls.
 
-Want to check out vue devtool ? Check this [demo](vuex-api-demo.netlify.com)
+Want to check out vue devtool ? Check this [demo](vuex-api-demo.netlify.com).
+
 Want to check a [live demo](https://codesandbox.io/s/3rmllr9qp5), open console and see the mutations.
 
 
