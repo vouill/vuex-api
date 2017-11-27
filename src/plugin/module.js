@@ -1,23 +1,27 @@
 import pluginActions from './actions'
 import vue from 'vue'
 import axios from 'axios'
+import shallowEqual from './utils'
+
 const { CancelToken } = axios
 
 const state = {}
 
 // used for request cancelation
-const previousStateRequest = { cancel: null, url: null, state: 'finished' }
+const previousStateRequest = { cancel: null, url: null, params: {}, state: 'finished' }
 
 const actions = {
   [pluginActions.request]: ({ commit, dispatch }, { requestConfig, ...otherConfig }) => {
-    const { url, method, onSuccess, keyPath } = otherConfig
+    const { url, method, onSuccess, keyPath, params } = otherConfig
     return new Promise((resolve, reject) => {
+      console.log(otherConfig)
       commit(pluginActions.request, { keyPath })
-      if (url === previousStateRequest.url && previousStateRequest.state === 'started') {
+      if (url === previousStateRequest.url && previousStateRequest.state === 'started' && shallowEqual(params, previousStateRequest.params)) {
         previousStateRequest.cancel()
       }
       previousStateRequest.url = url
       previousStateRequest.state = 'started'
+      previousStateRequest.params = params
       axios({
         ...requestConfig,
         ...otherConfig,
@@ -28,7 +32,6 @@ const actions = {
         })
       }).then(resp => {
         previousStateRequest.state = 'finished'
-
         commit(pluginActions.success, { resp: resp, keyPath })
         if (onSuccess) {
           const { dispatchAction, executeFunction, commitAction } = onSuccess

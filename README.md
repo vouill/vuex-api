@@ -1,9 +1,17 @@
 # vuex-api
 
+Never write any API state logic ( loading, error, success, onSuccess ... are already handled)
+
+Both do Read and Write request to the API with the same behavior.
+
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
 ```javascript
+import pluginActions from 'plugin/actions'
+
+...
+
 created: {
   this.$store.dispatch(pluginActions.request, {
     baseURL: 'https://jsonplaceholder.typicode.com',
@@ -36,13 +44,6 @@ And moreover we provide you a list of helper functions to easily access data.
 Note: Notice how the arguments are the ones you pass to an axios request, well they are the same indeed !
 
 Only the `keyPath` argument is specific to vuex-api, it helps to have a namespace in the vuex state to store the request state.
-
-## Perks of this library:
-
-- Never write any API state logic ( loading, error, success, onSuccess ... are already handled)
-- Both do Read and Write request to the API with the same behavior.
-- Super useful when using multiple external apis ( ex: `<my-api/>` `<contentful-api>` `<github-api/>` )
-- Have a collection of helpful helpers to answer your common needs 
 
 
 ## Getting started
