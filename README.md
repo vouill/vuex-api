@@ -2,7 +2,9 @@
 
 Simple vuex library to easily handle api calls.
 
-Also, there is this [demo](vuex-api-demo.netlify.com), open your vue dev tool to check the vuex state.
+Want to check out vue devtool ? Check this [demo](vuex-api-demo.netlify.com)
+Want to check a [live demo](https://codesandbox.io/s/3rmllr9qp5), open console and see the mutations.
+
 
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
@@ -22,14 +24,13 @@ export default new Vuex.Store({
 Somewhere in your app:
 
 ```javascript
-import pluginActions from 'plugin/actions'
+import { actions, getApiData } from 'vuex-api'
 import { mapState } from 'vuex'
-import { getApiData } from './plugin'
 
 ...
 
 created: {
-  this.$store.dispatch(pluginActions.request, {
+  this.$store.dispatch(actions.request, {
     baseURL: 'https://jsonplaceholder.typicode.com',
     method: 'GET',
     url: 'posts',
@@ -71,7 +72,7 @@ Only the `keyPath` argument is specific to vuex-api, it helps to have a namespac
 ```javascript
     methods: {
       sendPostReq: function () {
-        this.$store.dispatch(pluginActions.request, {
+        this.$store.dispatch(actions.request, {
           requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
           method: 'POST',
           url: 'posts',

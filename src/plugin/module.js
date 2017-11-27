@@ -47,7 +47,8 @@ const actions = {
         resolve(resp)
       }).catch(err => {
         if (axios.isCancel(err)) {
-          console.error('Same concurrent req cancel')
+          console.warn('Concurrent request canceled')
+          return
         }
         commit(pluginActions.error, { err: err.response, keyPath })
         reject(err)
