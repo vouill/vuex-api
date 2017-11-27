@@ -8,7 +8,7 @@ Also, there is this [demo](vuex-api-demo.netlify.com), open your vue dev tool to
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
 
-1. In your `store.js`, install the `vuex-api` module once:
+In your `store.js`, install the `vuex-api` module once:
 ```javascript
 import vuexApi from 'vuex-api'
 
