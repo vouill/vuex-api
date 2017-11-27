@@ -7,6 +7,20 @@ Also, there is this [demo](vuex-api-demo.netlify.com), open your vue dev tool to
 ## Basic usage
 Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
+
+1. In your `store.js`, install the `vuex-api` module once:
+```javascript
+import vuexApi from 'vuex-api'
+
+export default new Vuex.Store({
+  modules: {
+    vuexApi,
+  },
+})
+``` 
+
+Somewhere in your app:
+
 ```javascript
 import pluginActions from 'plugin/actions'
 import { mapState } from 'vuex'
@@ -51,17 +65,6 @@ Note: Notice how the arguments are the ones you pass to an axios request, well t
 Only the `keyPath` argument is specific to vuex-api, it helps to have a namespace in the vuex state to store the request state.
 
 
-## Getting started
-1. In your `store.js`, install the `vuex-api` module once:
-```javascript
-import vuexApi from 'vuex-api'
-
-export default new Vuex.Store({
-  modules: {
-    vuexApi,
-  },
-})
-``` 
 
 ## Make a Write request
 
