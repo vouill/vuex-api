@@ -14,7 +14,6 @@ const actions = {
   [pluginActions.request]: ({ commit, dispatch }, { requestConfig, ...otherConfig }) => {
     const { url, method, onSuccess, keyPath, params } = otherConfig
     return new Promise((resolve, reject) => {
-      console.log(otherConfig)
       commit(pluginActions.request, { keyPath })
       if (url === previousStateRequest.url && previousStateRequest.state === 'started' && shallowEqual(params, previousStateRequest.params)) {
         previousStateRequest.cancel()
