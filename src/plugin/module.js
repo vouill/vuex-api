@@ -12,7 +12,7 @@ const previousStateRequest = { cancel: null, url: null, params: {}, state: 'fini
 
 const actions = {
   [pluginActions.request]: ({ commit, dispatch }, { requestConfig, ...otherConfig }) => {
-    const { url, method, onSuccess, keyPath, params } = otherConfig
+    const { url, method, onSuccess, onError, keyPath, params } = otherConfig
     return new Promise((resolve, reject) => {
       commit(pluginActions.request, { keyPath })
       if (url === previousStateRequest.url && previousStateRequest.state === 'started' && shallowEqual(params, previousStateRequest.params)) {
@@ -41,7 +41,7 @@ const actions = {
             commit(commitAction)
           }
           if (executeFunction) {
-            executeFunction(resp)
+            executeFunction(resp, { commit, dispatch })
           }
         }
         resolve(resp)
@@ -50,6 +50,19 @@ const actions = {
           console.warn('Concurrent request canceled')
           return
         }
+        if (onError) {
+          const { dispatchAction, executeFunction, commitAction } = onError
+          if (dispatchAction) {
+            dispatch(dispatchAction)
+          }
+          if (commitAction) {
+            commit(commitAction)
+          }
+          if (executeFunction) {
+            executeFunction(err, { commit, dispatch })
+          }
+        }
+
         commit(pluginActions.error, { err: err.response, keyPath })
         reject(err)
       })
