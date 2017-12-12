@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/vouill/vuex-api.svg?branch=master)](https://travis-ci.org/vouill/vuex-api)
+
 # vuex-api
 
 Simple vuex library to easily handle api calls.
