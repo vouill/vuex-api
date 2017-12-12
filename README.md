@@ -67,7 +67,6 @@ Note: Notice how the arguments are the ones you pass to an axios request, well t
 Only the `keyPath` argument is specific to vuex-api, it helps to have a namespace in the vuex state to store the request state.
 
 
-
 ## Make a Write request
 
 ```javascript
@@ -83,12 +82,65 @@ Only the `keyPath` argument is specific to vuex-api, it helps to have a namespac
       }
     }
 ```
-## Request object
+
+## Empty a vuex-api state
+
+When you leave the page where you display all your posts, you might also want to empty the vuex store from its data since its not visible.
+We got you covered with this handy action:
+
+```javascript
+    methods: {
+      sendPostReq: function () {
+        this.$store.dispatch(actions.clear, keyPath)
+      }
+    }
+```
+
+
+## vuex-api specific
 
 The request object that you fire is mostly the Axios Request config object. 
-However one mandatory argument is:
-- `keyPath: string` set the store state attribute value under which the request state will be stored
+However few vuex-api specifc arguments are here to help you:
 
+- `keyPath: String | mandatory` set the store state attribute value under which the request state will be stored
+
+- `onSuccess || onError : Object | mandatory`  The onSuccess object has 3 possible arguments: 
+```
+{
+  onSuccess: { 
+    dispatchAction: action, // the passed action will be dispatched 
+    executeFunction: (resp, context),  // the passed function will be executed with the resp of the api and the vuex context 
+    commitAction: action, // the passed action will be commited 
+    }
+}
+```
+
+## onSuccess example
+Post a post then get all post when successful request:
+
+```javascript
+    methods: {
+      sendPostReq: function () {
+        this.$store.dispatch(actions.request, {
+          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
+          method: 'POST',
+          url: 'posts',
+          data: { title: 'foo', userId: 2, body: 'bar' },
+          keyPath: ['postPost'],
+          onSuccess: { 
+            dispatchAction: { 
+              requestConfig: { 
+                baseURL: 'https://jsonplaceholder.typicode.com' 
+              },
+             method: 'GET',
+             url: 'posts',
+             keyPath: ['post']
+            }
+          }
+        })
+      }
+    }
+```
 
 ## API
 `vuex-api` exports:
