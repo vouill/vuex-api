@@ -110,9 +110,9 @@ However few vuex-api specifc arguments are here to help you:
 ```
 {
   onSuccess: { 
-    dispatchAction: action, // the passed action will be dispatched 
+    dispatchAction: action, {type: ..., payload: ...}// the passed action will be dispatched 
+    commitAction: action, {type: ..., payload: ...}// the passed action will be commited 
     executeFunction: (resp, context),  // the passed function will be executed with the resp of the api and the vuex context 
-    commitAction: action, // the passed action will be commited 
     }
 }
 ```
@@ -130,13 +130,16 @@ Post a post then get all post when successful request:
           data: { title: 'foo', userId: 2, body: 'bar' },
           keyPath: ['postPost'],
           onSuccess: { 
-            dispatchAction: { 
-              requestConfig: { 
-                baseURL: 'https://jsonplaceholder.typicode.com' 
-              },
-             method: 'GET',
-             url: 'posts',
-             keyPath: ['post']
+            dispatchAction: {
+              type: actions.request, 
+              payload: { 
+               requestConfig: { 
+                 baseURL: 'https://jsonplaceholder.typicode.com' 
+               },
+              method: 'GET',
+              url: 'posts',
+              keyPath: ['post']
+             } 
             }
           }
         })

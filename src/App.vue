@@ -46,7 +46,18 @@
           method: 'POST',
           url: 'posts',
           data: { title: 'foo', userId: 2, body: 'bar' },
-          keyPath: 'postPost'
+          keyPath: 'postPost',
+          onSuccess: {
+            dispatchAction: {
+              type: pluginActions.request,
+              payload: {
+                baseURL: 'https://jsonplaceholder.typicode.com',
+                method: 'GET',
+                url: 'posts',
+                keyPath: 'json'
+              }
+            }
+          }
         })
       }
     },

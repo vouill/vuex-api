@@ -35,10 +35,12 @@ const actions = {
         if (onSuccess) {
           const { dispatchAction, executeFunction, commitAction } = onSuccess
           if (dispatchAction) {
-            dispatch(dispatchAction)
+            const { type, payload } = dispatchAction
+            dispatch(type, payload)
           }
           if (commitAction) {
-            commit(commitAction)
+            const { type, payload } = commitAction
+            commit(type, payload)
           }
           if (executeFunction) {
             executeFunction(resp, { commit, dispatch })
@@ -53,10 +55,12 @@ const actions = {
         if (onError) {
           const { dispatchAction, executeFunction, commitAction } = onError
           if (dispatchAction) {
-            dispatch(dispatchAction)
+            const { type, payload } = dispatchAction
+            dispatch(type, payload)
           }
           if (commitAction) {
-            commit(commitAction)
+            const { type, payload } = commitAction
+            commit(type, payload)
           }
           if (executeFunction) {
             executeFunction(err, { commit, dispatch })
