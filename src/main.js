@@ -12,6 +12,6 @@ Vue.component('json-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https
 new Vue({
   el: '#app',
   store,
+  components: { App },
   template: '<App/>',
-  components: { App }
 })

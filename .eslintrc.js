@@ -2,22 +2,24 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+       parser: "babel-eslint",
+  ecmaVersion: 2017,
+  sourceType: "module"
   },
   env: {
     browser: true,
     jest: true,
   },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard',
+  "extends": ["standard", "eslint:recommended", "plugin:vue/recommended"],
   // required to lint *.vue files
   plugins: [
-    'html'
+    "vue"
   ],
   // add your custom rules here
   'rules': {
+    "vue/max-attributes-per-line": 0,
     "object-curly-spacing": [2,"always"],
     // allow paren-less arrow functions
     'arrow-parens': 0,

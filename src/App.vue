@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <div>
-      <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" keyPath="vue-fdsfsdfsdfsdfsdf"/>
+      <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" key-path="vue-fdsfsdfsdfsdfsdf"/>
       <h2>error</h2>
-      <tree-view :data="error" :options="{maxDepth: 1}"></tree-view>
+      <tree-view :data="error" :options="{maxDepth: 1}"/>
     </div>
     <div>
-      <json-api :params="{postId: post}" url="posts" keyPath="json"/>
+      <json-api :params="{postId: post}" url="posts" key-path="json"/>
       <h2>json api w/ param</h2>
       <button @click="post++">add post nb</button>
-      <tree-view :data="json" :options="{maxDepth: 1}"></tree-view>
+      <tree-view :data="json" :options="{maxDepth: 1}"/>
     </div>
 
     <div>
       <h2>json api Post</h2>
-      <tree-view :data="postPost" :options="{maxDepth: 1}"></tree-view>
+      <tree-view :data="postPost" :options="{maxDepth: 1}"/>
       <button @click="sendPostReq">Post request</button>
     </div>
   </div>
@@ -30,10 +30,28 @@
   import { getApiState } from './plugin'
 
   export default {
-    name: 'app',
+    name: 'App',
     data: function () {
       return ({
         post: 1
+      })
+    },
+    computed: mapState({
+      repo: getApiState('vue-bulma-components'),
+      geb: getApiState('vue-geb'),
+      error: getApiState('vue-fdsfsdfsdfsdfsdf'),
+      json: getApiState('json'),
+      jsonStatus: getApiState('json', ['status']),
+      jsonResp: getApiState('json', ['resp']),
+      postPost: getApiState('postPost')
+    }),
+    created: function () {
+      // check the vuex progammaticGet in your vue dev tools
+      this.$store.dispatch(pluginActions.request, {
+        baseURL: 'https://jsonplaceholder.typicode.com',
+        method: 'GET',
+        url: 'posts',
+        keyPath: 'progammaticGet'
       })
     },
     methods: {
@@ -61,24 +79,6 @@
         })
       }
     },
-    created: function () {
-      // check the vuex progammaticGet in your vue dev tools
-      this.$store.dispatch(pluginActions.request, {
-        baseURL: 'https://jsonplaceholder.typicode.com',
-        method: 'GET',
-        url: 'posts',
-        keyPath: 'progammaticGet'
-      })
-    },
-    computed: mapState({
-      repo: getApiState('vue-bulma-components'),
-      geb: getApiState('vue-geb'),
-      error: getApiState('vue-fdsfsdfsdfsdfsdf'),
-      json: getApiState('json'),
-      jsonStatus: getApiState('json', ['status']),
-      jsonResp: getApiState('json', ['resp']),
-      postPost: getApiState('postPost')
-    })
 }
 </script>
 

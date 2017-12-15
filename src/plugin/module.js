@@ -49,7 +49,6 @@ const actions = {
         resolve(resp)
       }).catch(err => {
         if (axios.isCancel(err)) {
-          console.warn('Concurrent request canceled')
           return
         }
         if (onError) {
