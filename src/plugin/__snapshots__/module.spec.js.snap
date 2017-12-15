@@ -4,7 +4,113 @@ exports[`Module Actions should process clear 1`] = `
 Array [
   Array [
     "Clear_Api_Call",
-    "someKeypath",
+    Object {
+      "keyPath": "someKeypath",
+    },
+  ],
+]
+`;
+
+exports[`Module Actions should process onSuccess 1`] = `
+Array [
+  Array [
+    "Request_Api_Call",
+    Object {
+      "keyPath": "someKeypath",
+    },
+  ],
+  Array [
+    "Success_Api_Call",
+    Object {
+      "keyPath": "someKeypath",
+      "resp": Response {
+        "code": undefined,
+        "config": Object {
+          "adapter": [Function],
+          "cancelToken": CancelToken {
+            "promise": Promise {},
+          },
+          "data": undefined,
+          "headers": Object {
+            "Accept": "application/json, text/plain, */*",
+          },
+          "keyPath": "someKeypath",
+          "maxContentLength": -1,
+          "method": "get",
+          "onSuccess": Object {
+            "dispatchAction": Object {
+              "payload": "test-payload",
+              "type": "test-type",
+            },
+          },
+          "timeout": 0,
+          "transformRequest": Object {
+            "0": [Function],
+          },
+          "transformResponse": Object {
+            "0": [Function],
+          },
+          "url": "testUrl",
+          "validateStatus": [Function],
+          "xsrfCookieName": "XSRF-TOKEN",
+          "xsrfHeaderName": "X-XSRF-TOKEN",
+        },
+        "data": "test",
+        "headers": undefined,
+        "request": Request {
+          "config": Object {
+            "adapter": [Function],
+            "cancelToken": CancelToken {
+              "promise": Promise {},
+            },
+            "data": undefined,
+            "headers": Object {
+              "Accept": "application/json, text/plain, */*",
+            },
+            "keyPath": "someKeypath",
+            "maxContentLength": -1,
+            "method": "get",
+            "onSuccess": Object {
+              "dispatchAction": Object {
+                "payload": "test-payload",
+                "type": "test-type",
+              },
+            },
+            "timeout": 0,
+            "transformRequest": Object {
+              "0": [Function],
+            },
+            "transformResponse": Object {
+              "0": [Function],
+            },
+            "url": "testUrl",
+            "validateStatus": [Function],
+            "xsrfCookieName": "XSRF-TOKEN",
+            "xsrfHeaderName": "X-XSRF-TOKEN",
+          },
+          "headers": Object {
+            "Accept": "application/json, text/plain, */*",
+          },
+          "reject": [Function],
+          "resolve": [Function],
+          "responseType": undefined,
+          "timeout": 0,
+          "url": "testUrl",
+          "withCredentials": false,
+        },
+        "status": 200,
+        "statusText": undefined,
+      },
+    },
+  ],
+]
+`;
+
+exports[`Module Actions should process onSuccess 2`] = `
+Array [
+  Array [
+    "test-type",
+    "test-payload",
   ],
 ]
 `;
