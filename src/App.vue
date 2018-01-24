@@ -3,20 +3,22 @@
     <div>
       <github-api url="reposdfsdfs/vouill/vue-fdsfsdfsdfsdfsdf/commits" key-path="vue-fdsfsdfsdfsdfsdf"/>
       <h2>error</h2>
-      <tree-view :data="error" :options="{maxDepth: 1}"/>
+    <!--<tree-view :data="error" :options="{maxDepth: 1}"/>-->
     </div>
     <div>
       <json-api :params="{postId: post}" url="posts" key-path="json"/>
       <h2>json api w/ param</h2>
       <button @click="post++">add post nb</button>
-      <tree-view :data="json" :options="{maxDepth: 1}"/>
+    <!--<tree-view :data="json" :options="{maxDepth: 1}"/>-->
     </div>
 
     <div>
       <h2>json api Post</h2>
-      <tree-view :data="postPost" :options="{maxDepth: 1}"/>
+      <!--<tree-view :data="postPost" :options="{maxDepth: 1}"/>-->
       <button @click="sendPostReq">Post request</button>
     </div>
+    <!--<child/>-->
+    <debug key-path="json" />
   </div>
 </template>
 <style>
@@ -28,9 +30,12 @@
   import { mapState } from 'vuex'
   import pluginActions from 'plugin/actions'
   import { getApiState } from './plugin'
+  import Child from './child.vue'
+  import hoc, { Debug } from './plugin/hoc'
 
   export default {
     name: 'App',
+    components: { Child: hoc(Child,{ keyPath: 'json' }), Debug },
     data: function () {
       return ({
         post: 1

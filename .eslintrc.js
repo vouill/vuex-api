@@ -19,6 +19,7 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    "vue/require-prop-types": 1,
     "vue/max-attributes-per-line": 0,
     "object-curly-spacing": [2,"always"],
     // allow paren-less arrow functions
