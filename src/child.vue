@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    {{ data }}
+    from child: {{ data }}
   </div>
 </template>
 

@@ -18,7 +18,10 @@
       <button @click="sendPostReq">Post request</button>
     </div>
     <!--<child/>-->
-    <debug key-path="json" />
+    <!--<debug key-path="json" />-->
+    <hoc :key-path="['json']">
+      <child/>
+    </hoc>
   </div>
 </template>
 <style>
@@ -31,11 +34,11 @@
   import pluginActions from 'plugin/actions'
   import { getApiState } from './plugin'
   import Child from './child.vue'
-  import hoc, { Debug } from './plugin/hoc'
+  import hoc, { Debug, wrapper } from './plugin/hoc'
 
   export default {
     name: 'App',
-    components: { Child: hoc(Child,{ keyPath: 'json' }), Debug },
+    components: { Child, wrappedChild: wrapper(Child,{ keyPath: 'json' }), Debug, hoc },
     data: function () {
       return ({
         post: 1
