@@ -17,6 +17,12 @@
       <tree-view :data="postPost" :options="{maxDepth: 1}"/>
       <button @click="sendPostReq">Post request</button>
     </div>
+    <div>
+      <h2>Using helper</h2>
+      <vuexApiHoc key-path="json">
+        <template slot="success"><child/></template>
+      </vuexApiHoc>
+    </div>
   </div>
 </template>
 <style>
@@ -27,10 +33,12 @@
 <script>
   import { mapState } from 'vuex'
   import pluginActions from 'plugin/actions'
-  import { getApiState } from './plugin'
+  import { getApiState, vuexApiHoc } from './plugin'
+  import Child from './child'
 
   export default {
     name: 'App',
+    components: { vuexApiHoc, Child },
     data: function () {
       return ({
         post: 1
