@@ -19,8 +19,10 @@
     </div>
     <div>
       <h2>Using helper</h2>
-      <vuexApiHoc key-path="json">
+      <vuexApiHoc key-path="postPost">
         <template slot="success"><child/></template>
+        <template slot="loading"><div>loading</div></template>
+        <template slot="error">error</template>
       </vuexApiHoc>
     </div>
   </div>
