@@ -16,7 +16,8 @@ export const ApiHandlerComponent = {
       return null
     }
     if(this.storeObject.status === 'loading'){
-      return this.$slots.loading || this.loadingComponent || null;
+      this.$slots.loading[0].componentOptions.propsData.storeObject = this.storeObject
+      return h('div', this.$slots.loading)
     }
     if(this.storeObject.status === 'success' && this.$slots.success){
       this.$slots.success[0].componentOptions.propsData.storeObject = this.storeObject
