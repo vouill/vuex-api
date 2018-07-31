@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import get from 'lodash/get'
 
 export const ApiHandlerComponent = {
   name: 'vuex-helper',
@@ -8,7 +9,7 @@ export const ApiHandlerComponent = {
   },
   computed: {
     storeObject () {
-      return this.$store.state.vuexApi[this.keyPath]
+      return get(this.$store.state.vuexApi, this.keyPath)
     },
   },
   render (h) {
@@ -20,6 +21,12 @@ export const ApiHandlerComponent = {
         this.$slots.loading[0].componentOptions.propsData.vuexApiStoreObject = this.storeObject
       }
       return h('div', this.$slots.loading)
+    }
+    if(!this.storeObject.firstCallDone  && this.$slots.firstCallDone){
+      if(this.$slots.firstCallDone[0].componentOptions){
+        this.$slots.firstCallDone[0].componentOptions.propsData.vuexApiStoreObject = this.storeObject
+      }
+      return h('div', this.$slots.firstCallDone)
     }
     if(this.storeObject.status === 'success' && this.$slots.success){
       if(this.$slots.success[0].componentOptions){

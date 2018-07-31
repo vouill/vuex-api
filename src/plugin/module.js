@@ -93,11 +93,11 @@ const mutations = {
     vue.set(state, head, stateObject)
   },
   [pluginActions.error]: (state, { keyPath, err }) => {
-    const responseStateObject = { status: 'error', err }
+    const responseStateObject = { status: 'error', err, firstCallDone: true }
     const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
     vue.set(state, head, stateObject)
   },
-  [pluginActions.clear]: (state, { keyPath }) => {
+  [pluginActions.clear]: (state, keyPath) => {
     const responseStateObject = {}
     const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
     vue.set(state, head, stateObject)

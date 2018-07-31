@@ -19,14 +19,10 @@
     </div>
     <div>
       <h2>Using helper</h2>
-      <hoc key-path="postPost">
+      <hoc :key-path="['user','post']">
         <template slot="success"><child/></template>
         <template slot="loading"><div>loading</div></template>
         <template slot="error">error</template>
-      </hoc>
-      <hoc key-path="posts">
-        <template slot="error">error</template>
-        <template slot="success"><Child/></template>
       </hoc>
     </div>
   </div>
@@ -46,7 +42,7 @@
   export default {
     name: 'App',
     components: { hoc, Child },
-    mixins:[vuexApiCallMixin, vuexApiGetStateMixin('json')],
+    mixins:[vuexApiCallMixin, vuexApiGetStateMixin(['user', 'post'], 'userPost')],
     data: function () {
       return ({
         post: 1
@@ -80,7 +76,7 @@
           method: 'POST',
           url: 'posts',
           data: { title: 'foo', userId: 2, body: 'bar' },
-          keyPath: 'postPost',
+          keyPath: ['user','post'],
           onSuccess: {
             dispatchAction: {
               type: pluginActions.request,
