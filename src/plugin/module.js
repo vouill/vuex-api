@@ -1,3 +1,4 @@
+import appendStateWithResponse from './helpers/appendStateWithResponse';
 import pluginActions from './actions'
 import vue from 'vue'
 import axios from 'axios'
@@ -81,21 +82,25 @@ const actions = {
 
 const mutations = {
   [pluginActions.request]: (state, { keyPath }) => {
-    const obj = { ...state[keyPath], status: 'loading' }
-    vue.set(state, keyPath, obj)
+    const responseStateObject = { status: 'loading' }
+    const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
+    vue.set(state, head, stateObject)
   },
   [pluginActions.success]: (state, { keyPath, resp }) => {
     delete resp.config // make this configurable
-    const obj = { ...state[keyPath], status: 'success', firstCallDone: true, resp }
-    vue.set(state, keyPath, obj)
+    const responseStateObject = { status: 'success', firstCallDone: true, resp }
+    const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
+    vue.set(state, head, stateObject)
   },
   [pluginActions.error]: (state, { keyPath, err }) => {
-    const obj = { ...state[keyPath], status: 'error', err }
-    vue.set(state, keyPath, obj)
+    const responseStateObject = { status: 'error', err }
+    const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
+    vue.set(state, head, stateObject)
   },
-  [pluginActions.clear]: (state, keyPath) => {
-    const obj = {}
-    vue.set(state, keyPath, obj)
+  [pluginActions.clear]: (state, { keyPath }) => {
+    const responseStateObject = {}
+    const { stateObject, head } = appendStateWithResponse(state, keyPath, responseStateObject)
+    vue.set(state, head, stateObject)
   }
 }
 

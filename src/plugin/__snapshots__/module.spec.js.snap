@@ -128,7 +128,7 @@ Array [
 
 exports[`Module mutations should process clear 1`] = `
 Object {
-  "[object Object]": Object {},
+  "someKeyPath": Object {},
 }
 `;
 
@@ -145,13 +145,12 @@ Object {
 
 exports[`Module mutations should process request -> error 1`] = `
 Object {
-  "[object Object]": Object {},
+  "someKeyPath": Object {},
 }
 `;
 
 exports[`Module mutations should process request -> error 2`] = `
 Object {
-  "[object Object]": Object {},
   "someKeyPath": Object {
     "err": Object {
       "data": "fakeError",
@@ -163,7 +162,6 @@ Object {
 
 exports[`Module mutations should process request -> success 1`] = `
 Object {
-  "[object Object]": Object {},
   "someKeyPath": Object {
     "firstCallDone": true,
     "resp": Object {
