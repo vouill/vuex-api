@@ -19,11 +19,15 @@
     </div>
     <div>
       <h2>Using helper</h2>
-      <vuexApiHoc key-path="postPost">
+      <hoc key-path="postPost">
         <template slot="success"><child/></template>
         <template slot="loading"><div>loading</div></template>
         <template slot="error">error</template>
-      </vuexApiHoc>
+      </hoc>
+      <hoc key-path="posts">
+        <template slot="error">error</template>
+        <template slot="success"><Child/></template>
+      </hoc>
     </div>
   </div>
 </template>
@@ -35,12 +39,14 @@
 <script>
   import { mapState } from 'vuex'
   import pluginActions from 'plugin/actions'
-  import { getApiState, vuexApiHoc } from './plugin'
+  import { getApiState, hoc, vuexApiCallMixin, vuexApiGetStateMixin } from './plugin'
   import Child from './child'
+
 
   export default {
     name: 'App',
-    components: { vuexApiHoc, Child },
+    components: { hoc, Child },
+    mixins:[vuexApiCallMixin, vuexApiGetStateMixin('json')],
     data: function () {
       return ({
         post: 1
@@ -69,8 +75,8 @@
         this.$store.dispatch(pluginActions.clear, keyPath)
       },
       sendPostReq: function () {
-        this.$store.dispatch(pluginActions.request, {
-          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
+        this.vuexApiCall({
+          baseURL: 'https://jsonplaceholder.typicode.com',
           method: 'POST',
           url: 'posts',
           data: { title: 'foo', userId: 2, body: 'bar' },

@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Api handler should mutate correctly already existing key on keyPath with more than one item 1`] = `
+Object {
+  "foo": Object {
+    "bar": Object {
+      "baz": Object {
+        "data": Object {
+          "toto": "tutu",
+        },
+        "status": "loading",
+      },
+    },
+    "data": "bax",
+    "status": "success",
+  },
+}
+`;
+
+exports[`Api handler should mutate correctly already existing key on keyPath with one item 1`] = `
+Object {
+  "foo": Object {
+    "data": Object {
+      "toto": "tutu",
+    },
+    "status": "loading",
+  },
+}
+`;
+
+exports[`Api handler should mutate correctly on keyPath with more than one item 1`] = `
+Object {
+  "foo": Object {
+    "bar": Object {
+      "baz": Object {
+        "data": Object {
+          "toto": "tutu",
+        },
+        "status": "loading",
+      },
+    },
+  },
+}
+`;
+
+exports[`Api handler should mutate correctly on keyPath with one item 1`] = `
+Object {
+  "foo": Object {
+    "data": Object {
+      "toto": "tutu",
+    },
+    "status": "loading",
+  },
+}
+`;
