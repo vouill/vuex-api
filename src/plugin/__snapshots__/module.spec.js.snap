@@ -138,6 +138,7 @@ Object {
     "err": Object {
       "data": "fakeError",
     },
+    "firstCallDone": true,
     "status": "error",
   },
 }
@@ -155,6 +156,7 @@ Object {
     "err": Object {
       "data": "fakeError",
     },
+    "firstCallDone": true,
     "status": "error",
   },
 }
