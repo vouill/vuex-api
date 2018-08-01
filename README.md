@@ -1,19 +1,18 @@
 [![Build Status](https://travis-ci.org/vouill/vuex-api.svg?branch=master)](https://travis-ci.org/vouill/vuex-api)
 
-# vuex-api
+# Vuex api
 
-Simple vuex library to easily handle api calls.
+## Intro
 
-Want to check out vue devtool ? Check this [demo](https://vuex-api-demo.netlify.com).
-
-Want to check a [live demo](https://codesandbox.io/s/3rmllr9qp5), open console and see the mutations.
+`vuex-api` is a library that wants to help you handle API as easily as possible. Yes, that's it !
 
 
-## Basic usage
-Let's get posts from the free api [`https://jsonplaceholder.typicode.com/`](https://jsonplaceholder.typicode.com/) !
 
+## Install
 
-In your `store.js`, install the `vuex-api` module once:
+1. Make sure you have `vuex` set up in your app.
+2. In your `store.js`, install the `vuex-api` module:
+
 ```javascript
 import vuexApi from 'vuex-api'
 
@@ -22,225 +21,202 @@ export default new Vuex.Store({
     vuexApi,
   },
 })
-``` 
-
-Somewhere in your app:
-
-```javascript
-import { actions, getApiData } from 'vuex-api'
-import { mapState } from 'vuex'
-
-...
-
-created: {
-  this.$store.dispatch(actions.request, {
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    method: 'GET',
-    url: 'posts',
-    // params: {} if need to add query params
-    keyPath: ['post'] // Will set the namespace where it will be stored in the vuex state 
-  }),
-computed: mapState({
-      postData: getApiData('post'),
-    })
-}
-
 ```
-
-And... that's it ! 
-
-Now let's have a look at your vuex state:
-
-```
-state: {
-  vuexApi: {
-    post: {
-      status: 'success', // can be 'loading' and 'error' depending on the request status
-      resp: {...}, // the resp obj from axios request
-    }
-  }
-}
-```
-
-And moreover we provide you a list of helper functions to easily access data.
-
-Note: Notice how the arguments are the ones you pass to an axios request, well they are the same indeed !
-
-Only the `keyPath` argument is specific to vuex-api, it helps to have a namespace in the vuex state to store the request state.
-
-
-## Make a Write request
-
-```javascript
-    methods: {
-      sendPostReq: function () {
-        this.$store.dispatch(actions.request, {
-          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
-          method: 'POST',
-          url: 'posts',
-          data: { title: 'foo', userId: 2, body: 'bar' },
-          keyPath: ['postPost']
-        })
-      }
-    }
-```
-
-## Empty a vuex-api state
-
-When you leave the page where you display all your posts, you might also want to empty the vuex store from its data since its not visible.
-We got you covered with this handy action:
-
-```javascript
-    methods: {
-      sendPostReq: function () {
-        this.$store.dispatch(actions.clear, keyPath)
-      }
-    }
-```
-
-
-## vuex-api specific
-
-The request object that you fire is mostly the Axios Request config object. 
-However few vuex-api specifc arguments are here to help you:
-
-- `keyPath: String | mandatory` set the store state attribute value under which the request state will be stored
-
-- `onSuccess || onError : Object | mandatory`  The onSuccess object has 3 possible arguments: 
-```
-{
-  onSuccess: { 
-    dispatchAction: action, {type: ..., payload: ...}// the passed action will be dispatched 
-    commitAction: action, {type: ..., payload: ...}// the passed action will be commited 
-    executeFunction: (resp, context),  // the passed function will be executed with the resp of the api and the vuex context 
-    }
-}
-```
-
-## onSuccess example
-Post a post then get all post when successful request:
-
-```javascript
-    methods: {
-      sendPostReq: function () {
-        this.$store.dispatch(actions.request, {
-          requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' },
-          method: 'POST',
-          url: 'posts',
-          data: { title: 'foo', userId: 2, body: 'bar' },
-          keyPath: ['postPost'],
-          onSuccess: { 
-            dispatchAction: {
-              type: actions.request, 
-              payload: { 
-               requestConfig: { 
-                 baseURL: 'https://jsonplaceholder.typicode.com' 
-               },
-              method: 'GET',
-              url: 'posts',
-              keyPath: ['post']
-             } 
-            }
-          }
-        })
-      }
-    }
-```
-
-## API
-`vuex-api` exports:
-
-### `getApiResp(keyPath, path, defaultValue)`
-#### Arguments:
-`keyPath`: define the path in `vuexState.vuexApi.keyPath` where the api data will be stored.
-
-`path`: if you want to return a deeply nested value in the api response ( see `.get()` method in lodash )
-
-`defaultValue`: default value returned if nothing found
-#### Returns:
-Response object of the api call.
-```javascript
-{
-  data: {...},
-  headers: {...}
-}
-```
-
-### `getApiData(keyPath, path, defaultValue)`
-#### Returns:
-The api response data.
 
  
-### `getApiStatus(keyPath, path, defaultValue)`
-#### Returns:
-Status of the api call:
- - undefined ( component not mounted yet or no actions fired)
- - `'loading'`
- - `'success'`
- - `'error'`
- 
- 
-### `getApiState(keyPath, path, defaultValue)`
-#### Returns:
-whole state of the api call:
-- when loading:
-```
-{
-  status: 'loading'
-}
-```
-- when success api call:
-```
-{
-  status: 'success',
-  firstCallDone: true,
-  resp: {...}
-}
-```
 
-- when failed api call:
-```
-{
-  status: 'error',
-  firstCallDone: true,
-  err: {...}
-}
-```
+## Usage
 
-## Advanced users
+This library allows you [multiple](#documentation) way to make and consume API calls. Here is an exemple of one of them:
 
-There is also another way to get data. This way does not handle directly actions, but delegate it to a component
-
-### Create the `vuex-api` component that will make the api calls for you
-
-In your `main.js` ( or in a component )
 ```javascript
-import { ApiHandlerComponent } from 'vuex-api'
-// you can pass an axios requestObject to all api calls made by <external-json-api/>
-Vue.component('json-api', ApiHandlerComponent({ requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' } }))
+created: function () {
+    this.vuexApiCall(
+      {
+        baseURL: 'https://jsonplaceholder.typicode.com', 
+        url: 'posts', 
+        keyPath: ['typicode', 'posts'] // is the to reach the data in your vuex state
+        }
+      )
+  },
 ```
 
-Now you have a json-api component registered. All its API calls will be done w/ the given requestConfig object.
-This mean that if you use multiple apis, same domain and external domains, you can make multiple api components :).
 
-Now let's fetch the posts !
 
 ```html
-<template>
-  <div>
-    <json-api url="post" keyPath="jsonPosts"/>
-    <div v-for="post in posts">{{post}}</div>
-  </div>
-</template>
-s
-<script>
-import { getApiResp } from 'vuex-api'
-export default {
-  computed: mapState({
-    posts: getApiResp('jsonPosts'),
-  }),
-}
-</script>
+// Render components based on the status of the API call. The component will have the api call status injected in their props automatically
+<vuexApiHoc :keyPath="['typicode', 'posts']">
+    <template slot="success"><feed-list/></template>
+    <template slot="loading"><loading/></template>
+    <template slot="error"><error/></template>
+</vuexApiHoc>
 ```
+
+
+
+
+
+## Motivation
+
+You can do API calls for anything:
+
+- getting a blog post
+- create a recipe
+- delete a user
+
+However,  API calls are a pretty repetitive  when you think about it.
+
+1. Emit the API call
+2. Display loading (or not)
+3. Receive Data
+4. Display Data (or error)
+5. Maybe as consequence execute custom code
+
+
+
+This Library goals is to abstract this repetition from you. You only need to give the necessary data to perform the API call and that's it. The library will: 
+
+- Handle the whole api call from loading to success and error
+- Give you mixins and HOC to help you make and retrieve API calls.
+
+
+
+## Documentation
+
+Vuex-api is nothing but a vuex module. It listen to a certain action, with a payload that will be used to perform the API Call. Then it will store the different states of the response in the vuex state.
+
+Because we have all the logic handled at one place, we can add tooling around that will help us reduce the pain to handle api calls.
+
+This doc is split in 2 parts.
+
+-> Sending API calls
+
+-> Retrieve API call data
+
+## Emit API calls
+
+Emitting an API call will always require you to send the info necessary to perform the api request.
+
+```
+baseURL: 'https://jsonplaceholder.typicode.com' 
+method: 'GET'
+url: 'posts'
+keyPath: ['article', 'slugId'] // the only attribute not shapped in the axios request object. I will define the path where the api call states will be stored in vuex.
+```
+
+The following are 3 independant methods to emit the same API call.
+
+### Using store dispatch 
+
+[>> Interactive demo](https://codesandbox.io/s/5yq65jrqop)
+
+To emit a vuex-API call you need to fire an action with the following data:
+
+```javascript
+import { actions } from 'vuex-api'
+
+created: function(){
+    this.$store.dispatch(actions.request,{
+        baseURL: 'https://jsonplaceholder.typicode.com', 
+        url: 'posts', 
+        keyPath: ['typicode', 'posts']
+      }
+    )
+  },
+```
+
+
+
+### Using mixins
+
+[>> Interactive demo](https://codesandbox.io/s/n92rmvk844)
+
+```
+mixins:[
+    vuexApiCallMixin,
+  ],
+```
+
+
+
+`vuexApiCallMixin` exposes to the vue component 2 methods:
+
+- `vuexApiCall(VuexApiRequestObject)` Perform an API call using the passed VuexApiRequestObject
+- `vuexApiClear(keyPath)` Clears the state at the given keypath
+
+
+
+```javascript
+created: function () {
+    this.vuexApiCall(
+      {
+        baseURL: 'https://jsonplaceholder.typicode.com', 
+        url: 'posts', 
+        keyPath: ['typicode', 'posts']
+        }
+      )
+  },
+```
+
+
+
+### Using a component
+
+[>> Interactive demo](https://codesandbox.io/s/2p4q04pxj)
+
+This one is mostly suited for GET calls. It's a pretty powerfull way to handle GET calls in a breaze.
+
+```javascript
+Vue.component('json-api', ApiHandlerComponent({ 
+    requestConfig: { baseURL: 'https://jsonplaceholder.typicode.com' } 
+}))
+```
+
+```html
+<json-api url="posts" :keyPath="['typicode', 'posts']"/>
+```
+
+
+
+## Retrieve API call data
+
+### Accessing state
+
+[>> Interactive demo](https://codesandbox.io/s/5yq65jrqop)
+
+You can get the data related to your API call directly from the vuex state as you would do normally
+
+```javascript
+this.$store.state.vuexApi.popular.feed
+
+// or
+
+computed: mapState({
+ data = state => state.vuexApi.popular.feed   
+})
+```
+
+### Using Mixin
+
+[>> Interactive demo](https://codesandbox.io/s/n92rmvk844)
+
+`vuexApiGetStateMixin(keyPath, attributeName?)` exposes to the vue component a computed value representing the state at the given keyPath under `this[attributeName]`.
+
+
+
+### Use HOC
+
+[>> Interactive demo](https://codesandbox.io/s/25lq28o0p)
+
+This hoc will render the given child component depending on the status ate of the API Call. More over it will auto inject the api call response to the children in its props.
+
+```html
+<vuexApiHoc :key-path="['popular', 'feed']">
+    <template slot="success"><feed-list/></template>
+    <template slot="loading"><loading/></template>
+    <template slot="error"><error/></template>
+</vuexApiHoc>
+```
+
 
 
