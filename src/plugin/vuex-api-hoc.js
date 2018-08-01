@@ -4,7 +4,7 @@ import get from 'lodash/get'
 export const ApiHandlerComponent = {
   name: 'vuex-helper',
   props: {
-    keyPath: { type: String, required: true },
+    keyPath: { type: [String, Array], required: true },
     loadingComponent: Object,
   },
   computed: {
