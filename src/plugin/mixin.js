@@ -5,10 +5,10 @@ import pluginActions from './actions'
 export const vuexApiCallMixin  = {
   methods: {
     vuexApiCall: function (obj) {
-      this.$store.dispatch(pluginActions.request, obj)
+      return this.$store.dispatch(pluginActions.request, obj)
     },
     vuexApiClear: function (keyPath) {
-      this.$store.dispatch(pluginActions.request, keyPath)
+      return this.$store.dispatch(pluginActions.request, keyPath)
     }
   }
 }
