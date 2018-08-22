@@ -1,4 +1,5 @@
 import pluginActions from './actions'
+import isShallowEqual from './utils';
 
 export const ApiHandlerComponent = (initArgs) => ({
   name: 'api-handled',
@@ -16,26 +17,24 @@ export const ApiHandlerComponent = (initArgs) => ({
     }
   },
   watch: {
-    params: function () {
-      // need to add shallow compare func
-      if (this.previousParams !== JSON.stringify(this.params)) {
-        this.apiRequest()
-        this.previousParams = JSON.stringify(this.params)
-      }
+    params: {
+      handler: function (newParams, oldParams) {
+        if(!isShallowEqual(newParams, oldParams)){
+          this.apiRequest()
+        }
+      },
+      deep: true
     },
     url: function () {
       this.apiRequest()
     }
   },
   created: function () {
-    // issue with double req w/ watch triggered on params
-    if (!this.params) {
-      this.apiRequest()
-    }
-
     if (this.period) {
       this.intervalId = setInterval(this.apiRequest, this.period)
     }
+    this.apiRequest()
+
   },
   destroyed: function () {
     if (!this.persistent) {
