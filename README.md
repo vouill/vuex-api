@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/vouill/vuex-api.svg?branch=master)](https://travis-ci.org/vouill/vuex-api)
 
+# Deprecated
+
+Not maintenained anymore.
+
+
 # Vuex api
 
 ## Intro
